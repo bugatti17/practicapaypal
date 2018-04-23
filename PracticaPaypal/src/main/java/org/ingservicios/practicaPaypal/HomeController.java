@@ -42,7 +42,10 @@ public class HomeController {
 			for(Cookie cookie: cookies) {
 				if(cookie.getName().equals("Nombre") && cookie.getValue().equals("Admin")) {
 					 url="usuario";
-				}
+				} 
+					
+				
+				
 				/*else if(!cookie.getValue().equals("Admin")
 						&& !cookie.getValue().equals("JSESSIONID")) {
 					url="usuariodatos";
