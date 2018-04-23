@@ -4,16 +4,16 @@ public class DTOArticulos {
 	//Datos de nuestra tabla
 		private String nombre;
 		private float precio;
-		private String codigo;
+		private int codigo;
 		
 		
 		public DTOArticulos() {
 			nombre="";
 			precio=0;
-			codigo="";
+			codigo=0;
 		}
 		
-		public DTOArticulos(String nombre2, float precio2, String codigo2) {
+		public DTOArticulos(String nombre2, float precio2, int codigo2) {
 			nombre=nombre2;
 			precio=precio2;
 			codigo=codigo2;
@@ -32,10 +32,10 @@ public class DTOArticulos {
 		public void setPrecio(float precio) {
 			this.precio = precio;
 		}
-		public String getCodigo() {
+		public int getCodigo() {
 			return codigo;
 		}
-		public void setCodigo(String codigo) {
+		public void setCodigo(int codigo) {
 			this.codigo = codigo;
 		}
 
