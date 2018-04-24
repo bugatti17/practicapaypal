@@ -1,6 +1,8 @@
 package org.ingservicios.practicaPaypal;
 
-public class DTOArticulos {
+import java.io.Serializable;
+
+public class DTOArticulos implements Serializable{
 	//Datos de nuestra tabla
 		private String nombre;
 		private float precio;

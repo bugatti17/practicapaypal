@@ -27,6 +27,9 @@ public class HomeController {
 	@Autowired
 	private DAOUsuariosInterfaz dao;
 	
+	@Autowired
+	private DAOArticulosInterfaz dao2;
+	
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -43,8 +46,13 @@ public class HomeController {
 			for(Cookie cookie: cookies) {
 				if(cookie.getName().equals("Nombre") && cookie.getValue().equals("Admin")) {
 					 url="usuario";
+					 List <DTOUsuarios> lista = dao.leeUsuarios();
+					 model.addAttribute("lista", lista);
 				}else {
+				
 					url="listaArticulos";
+					List <DTOArticulos> listaArticulos = dao2.leeArticulos();
+					model.addAttribute("listaArticulos", listaArticulos);
 				}
 				
 				
@@ -53,6 +61,7 @@ public class HomeController {
 		}else {
 			url = "home";
 		}
+		
 		
 		
 		return url;
@@ -68,6 +77,7 @@ public class HomeController {
 
 		
 		List <DTOUsuarios> lista = dao.leeUsuarios();
+		List <DTOArticulos> listaArticulos = dao2.leeArticulos();
 		
 		if(dao.buscaAdmin(usuario, pass)!=null) {
 			Cookie c = new Cookie("Nombre", usuario);
@@ -76,6 +86,10 @@ public class HomeController {
 			resp.addCookie(c);
 			c2.setPath("/");
 			resp.addCookie(c2);
+			//Mediante el método setMaxAge nos permite asignar un tiempo de expiración a nuestra 
+			//cookie.Permitiendo que la borre una vez se haya sobrepasado el tiempo de expiración.
+			c.setMaxAge(10);
+			c2.setMaxAge(10);
 			
 				url="usuario";
 	
@@ -87,25 +101,33 @@ public class HomeController {
 				resp.addCookie(c);
 				c2.setPath("/");
 				resp.addCookie(c2);
+				//Mediante el método setMaxAge nos permite asignar un tiempo de expiración a nuestra 
+				//cookie.Permitiendo que la borre una vez se haya sobrepasado el tiempo de expiración.
+				c.setMaxAge(10);
+				c2.setMaxAge(10);
+				
 				DTOUsuarios dto = new DTOUsuarios();
 				dto=dao.buscaUsuario(usuario, pass);
 				//En Spring se utiliza model.addAttribute en vez de req.setAttribute para 
 				//agregar el atributo proporcionado bajo el nombre proporcionado.
 				model.addAttribute("dto", dto);
 				
-				url="usuariodatos";
+				url="listaArticulos";
 			}
 			
 		
 		
 		//Significa que el usuario no existe
-		if(!url.equals("usuario") && !url.equals("usuariodatos")) {
+		if(!url.equals("usuario") && !url.equals("listaArticulos")) {
 			url="registro";
 		}
 		
 		//En Spring se utiliza model.addAttribute en vez de req.setAttribute para 
 		//agregar el atributo proporcionado bajo el nombre proporcionado.
 		model.addAttribute("lista", lista);
+		model.addAttribute("listaArticulos", listaArticulos);
+		
+
 
 		return url;
 	}
