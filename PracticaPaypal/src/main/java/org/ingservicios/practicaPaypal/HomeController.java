@@ -143,6 +143,7 @@ public class HomeController {
 	
 	
 
+
 @RequestMapping(value = "/Servlet2", method = {RequestMethod.GET,RequestMethod.POST})
 public String servlet2 (HttpServletRequest request, Model model, HttpServletResponse resp) {
 
@@ -206,6 +207,81 @@ public String servlet2 (HttpServletRequest request, Model model, HttpServletResp
 			return url;
 }
 
+
+@RequestMapping(value="/Modificar", method= {RequestMethod.GET, RequestMethod.POST})
+public String modificar(HttpServletRequest request, Model model, HttpServletResponse resp) {
+	
+	return "modificacion";
+}
+
+@RequestMapping(value = "/ServletModificar", method = {RequestMethod.GET,RequestMethod.POST})
+public String servletmodificar (HttpServletRequest request, Model model, HttpServletResponse resp) {
+
+	Cookie[] cookies= request.getCookies();
+	String cookieName = "Nombre";
+	String cookieValue = "";
+	String cookieNamePassword = "Password";
+	String cookieValuePassword = "";
+	String url="";
+	
+	if(cookies != null) {
+		for(Cookie cookie: cookies) {
+			if(cookieName.equals(cookie.getName())) {
+				cookieValue = cookie.getValue();
+				
+			}
+			if(cookieNamePassword.equals(cookie.getName())){
+				cookieValuePassword = cookie.getValue();
+			}
+			
+			
+		}
+		if(dao.buscaUsuario(cookieValue, cookieValuePassword)!= null) {
+			
+			
+			//Parameter(...) es del jsp
+			String usuario = request.getParameter("username");
+			//Lo añadimos al model
+			model.addAttribute("Nombre", usuario);
+			
+			String password = request.getParameter("pass");
+			//Lo añadimos al model
+			model.addAttribute("Password", password);
+			
+			String email = request.getParameter("email");
+			//Lo añadimos al model
+			model.addAttribute("Email", email);	
+			
+			String dni = request.getParameter("dni");
+			//Lo añadimos al model
+			model.addAttribute("DNI", dni);
+			
+			
+			Cookie c = new Cookie("Nombre", usuario);
+			Cookie c2 = new Cookie ("Password", password);
+			c.setPath("/");
+			resp.addCookie(c);
+			c2.setPath("/");
+			resp.addCookie(c2);
+			
+			DTOUsuarios usuarioDTO = new DTOUsuarios(usuario,password,email,dni);
+			
+			dao.modificaUsuario(usuarioDTO);
+			
+			url="usuarioModificado";
+			
+			
+		
+			
+			
+			}
+		return url;
+
+	}
+	return "";
+
+
+}
 
 }
 
