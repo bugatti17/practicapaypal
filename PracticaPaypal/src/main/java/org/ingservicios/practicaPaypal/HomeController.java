@@ -30,6 +30,8 @@ public class HomeController {
 	@Autowired
 	private DAOArticulosInterfaz dao2;
 	
+	//Preguntar al profesor sobre el dni
+	private String guardaDni="";
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -95,10 +97,7 @@ public class HomeController {
 			resp.addCookie(c);
 			c2.setPath("/");
 			resp.addCookie(c2);
-			//Mediante el método setMaxAge nos permite asignar un tiempo de expiración a nuestra 
-			//cookie.Permitiendo que la borre una vez se haya sobrepasado el tiempo de expiración.
-			c.setMaxAge(10);
-			c2.setMaxAge(10);
+			
 			url="usuario";
 	
 			
@@ -120,6 +119,11 @@ public class HomeController {
 				//En Spring se utiliza model.addAttribute en vez de req.setAttribute para 
 				//agregar el atributo proporcionado bajo el nombre proporcionado.
 				model.addAttribute("dto", dto);
+				
+				/* Necesitamos guardar el DNI, ya que es clave primaria en la base de datos,
+				y lo utilizaremos para poder modificar los datos de un usuario.*/
+				guardaDni=dto.getDni();
+				
 				
 				url="listaArticulos";
 			}
@@ -172,7 +176,6 @@ public String servlet2 (HttpServletRequest request, Model model, HttpServletResp
 			c2.setPath("/");
 			resp.addCookie(c2);
 			
-			
 			DTOUsuarios usuarioDTO = new DTOUsuarios(usuario,password,email,dni);
 		
 			//List <DTOUsuarios> lista = dao.leeUsuarios();
@@ -222,6 +225,8 @@ public String servletmodificar (HttpServletRequest request, Model model, HttpSer
 	String cookieValue = "";
 	String cookieNamePassword = "Password";
 	String cookieValuePassword = "";
+	
+	
 	String url="";
 	
 	if(cookies != null) {
@@ -264,9 +269,15 @@ public String servletmodificar (HttpServletRequest request, Model model, HttpSer
 			c2.setPath("/");
 			resp.addCookie(c2);
 			
+			
 			DTOUsuarios usuarioDTO = new DTOUsuarios(usuario,password,email,dni);
 			
-			dao.modificaUsuario(usuarioDTO);
+			//A poder ser, añadir casos en los que el usuario introduzca dni que ya hay en la base de datos.
+			dao.modificaUsuario(usuarioDTO, guardaDni);
+			
+			//A continuación, le asignamos el nuevo DNI, por si el usuario quiere volver a modificar sus 
+			//datos de nuevo.
+			guardaDni=dni;
 			
 			url="usuarioModificado";
 			
@@ -278,7 +289,7 @@ public String servletmodificar (HttpServletRequest request, Model model, HttpSer
 		return url;
 
 	}
-	return "";
+	return "usuarioNoModificado";
 
 
 }

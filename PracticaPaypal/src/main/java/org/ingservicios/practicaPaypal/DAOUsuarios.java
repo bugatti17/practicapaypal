@@ -78,11 +78,11 @@ public class DAOUsuarios implements DAOUsuariosInterfaz {
 		}
 		
 		//Modificar usuario, en jdbcTemplate se utiliza ??
-				public void modificaUsuario(DTOUsuarios usuario) {			
-					String sql = "update usuarios SET Nombre = ?, Password = ?, Email = ?, DNI = ? WHERE Password = ?";
+				public void modificaUsuario(DTOUsuarios usuario, String dni) {			
+					String sql = "update usuarios SET Nombre = ?, Password = ?, Email = ?, DNI = ? WHERE DNI = ?";
 					
 					Object[ ] parametros = {usuario.getNombre(),usuario.getPassword(), usuario.getEmail(), 
-							usuario.getDni()}; //Array de objetos
+							usuario.getDni(), dni}; //Array de objetos
 					//Para operaciones INSERT, UPDATE o DELETE se usa el método jdbcTemplate.update
 					this.jdbcTemplate.update(sql,parametros);
 				}
