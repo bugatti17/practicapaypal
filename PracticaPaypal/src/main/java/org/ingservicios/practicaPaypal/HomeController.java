@@ -7,6 +7,7 @@ import java.util.Locale;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.ingservicios.practicaPaypal.DAOUsuariosInterfaz;
 import org.ingservicios.practicaPaypal.DTOUsuarios;
@@ -292,6 +293,16 @@ public String servletmodificar (HttpServletRequest request, Model model, HttpSer
 	return "usuarioNoModificado";
 
 
+}
+
+
+@RequestMapping(value="/Add", method= {RequestMethod.GET, RequestMethod.POST})
+public String add(HttpServletRequest request, Model model, HttpServletResponse resp) {
+	HttpSession session = request.getSession(true);
+	
+	//Como añadir al carrito dependiendo del boton
+	
+	return "listaArticulos";
 }
 
 }

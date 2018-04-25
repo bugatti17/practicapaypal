@@ -21,7 +21,12 @@
 <th><c:out value="${lista.precio}" /></th>
 <th><c:out value="${lista.codigo}" /></th>
 </tr>
-</c:forEach> 
+</c:forEach>
+ 
+ <!-- Prueba para el carrito  -->
+<th><form action="Add" method=post>
+<input type=submit value=Añadir></form>
+</th>
 </table>
 
 <form action="Modificar" method=post>

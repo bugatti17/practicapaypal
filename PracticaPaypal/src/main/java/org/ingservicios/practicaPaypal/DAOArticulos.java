@@ -1,5 +1,6 @@
 package org.ingservicios.practicaPaypal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -36,6 +37,9 @@ public class DAOArticulos implements DAOArticulosInterfaz {
 				if (articulos.isEmpty()) return null;
 				else return articulos.get(0);
 				}
+			
+			
+			
 			
 			
 	}
