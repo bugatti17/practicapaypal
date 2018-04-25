@@ -39,23 +39,32 @@ public class HomeController {
 		Cookie[] cookies= request.getCookies();
 		String cookieName = "Nombre";
 		String cookieValue = "";
+		String cookieNamePassword = "Password";
+		String cookieValuePassword = "";
 
 		String url="home";
 		
 		if(cookies != null) {
 			for(Cookie cookie: cookies) {
-				if(cookie.getName().equals("Nombre") && cookie.getValue().equals("Admin")) {
-					 url="usuario";
-					 List <DTOUsuarios> lista = dao.leeUsuarios();
-					 model.addAttribute("lista", lista);
-				}else {
-				
-					url="listaArticulos";
-					List <DTOArticulos> listaArticulos = dao2.leeArticulos();
-					model.addAttribute("listaArticulos", listaArticulos);
+				if(cookieName.equals(cookie.getName())) {
+					cookieValue = cookie.getValue();
+					
+				}
+				if(cookieNamePassword.equals(cookie.getName())){
+					cookieValuePassword = cookie.getValue();
 				}
 				
 				
+			}
+			
+			if(cookieValue.equals("Admin") && cookieValuePassword.equals("12345")) {
+			List <DTOUsuarios> lista = dao.leeUsuarios();
+			model.addAttribute("lista", lista);
+			url="usuario";
+			}else{
+			List <DTOArticulos> listaArticulos = dao2.leeArticulos();
+			model.addAttribute("listaArticulos", listaArticulos);
+			url="listaArticulos";
 			}
 			
 		}else {
@@ -90,9 +99,9 @@ public class HomeController {
 			//cookie.Permitiendo que la borre una vez se haya sobrepasado el tiempo de expiración.
 			c.setMaxAge(10);
 			c2.setMaxAge(10);
-			
-				url="usuario";
+			url="usuario";
 	
+			
 		}else if(dao.buscaUsuario(usuario, pass)!=null){
 			
 				Cookie c = new Cookie("Nombre", usuario);
