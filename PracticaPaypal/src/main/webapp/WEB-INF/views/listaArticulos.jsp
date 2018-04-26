@@ -40,7 +40,7 @@
 </form>
 
 <!-- Boton pago total para llevarnos al carrito -->
-<form action="CarritoCompra" method=post>
+<form action="Carrito" method=post>
 <input type=submit value=Pago></form>
 
 

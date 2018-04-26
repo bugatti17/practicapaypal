@@ -9,7 +9,7 @@
 <body>
 <h2>Carrito de la compra </h2>
  
-<p>Su cantida a pagar en euros son:  ${Suma}</p>
+<p>Su cantidad a pagar en euros son:  ${Suma}</p>
 
 
 </body>

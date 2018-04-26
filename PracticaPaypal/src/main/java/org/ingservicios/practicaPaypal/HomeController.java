@@ -302,6 +302,7 @@ public String servletmodificar (HttpServletRequest request, Model model, HttpSer
 
 @RequestMapping(value="/Add", method= {RequestMethod.GET, RequestMethod.POST})
 public String add(HttpServletRequest request, Model model, HttpServletResponse resp) {
+	boolean bool = true;
 	HttpSession session = request.getSession(true);
 	String accion = request.getParameter("accion_servlet");
 
@@ -309,16 +310,20 @@ public String add(HttpServletRequest request, Model model, HttpServletResponse r
 	ArrayList<Integer> itemsGuardados = (ArrayList) session.getAttribute("itemsGuardados");
 
 			if (itemsGuardados == null){
-			itemsGuardados = new ArrayList<Integer>();
+			itemsGuardados = new ArrayList<Integer>(2);
+			bool = false;
 			}
 
 	
 	if (accion.equals("accion1")) {
 		int numeroElementos=0;
-		if(itemsGuardados.get(0)!=null) {
+		if(bool!=false) {
+			
 			numeroElementos = itemsGuardados.get(0);
+			
 		}else {
 			numeroElementos = 0;
+			bool=true;
 		}
 		
 		itemsGuardados.add(0,numeroElementos++);
@@ -330,13 +335,15 @@ public String add(HttpServletRequest request, Model model, HttpServletResponse r
 			session.setAttribute("itemsGuardados", itemsGuardados);
 		}
 
+		List <DTOArticulos> listaArticulos = dao2.leeArticulos();
+		model.addAttribute("listaArticulos", listaArticulos);
 	
 	return "listaArticulos";
 }
 
 
-@RequestMapping(value="/CarritoCompra", method= {RequestMethod.GET, RequestMethod.POST})
-public String carritocompra(HttpServletRequest request, Model model, HttpServletResponse resp) {
+@RequestMapping(value="/Carrito", method= {RequestMethod.GET, RequestMethod.POST})
+public String carrito(HttpServletRequest request, Model model, HttpServletResponse resp) {
 	String url="";
 	
 	HttpSession session = request.getSession(true);
@@ -345,9 +352,9 @@ public String carritocompra(HttpServletRequest request, Model model, HttpServlet
 		url = "listaArticulos";
 	}else {
 		url="carritoCompra";
-	}
 	
-	for(int pos=0; pos<itemsGuardados.get(pos);pos++) {
+	
+	for(int pos=0; pos<=itemsGuardados.get(pos);pos++) {
 		if(pos==0) {
 			int cantidad = itemsGuardados.get(pos);
 			float precio = dao2.buscaArticulo(pos).getPrecio();
@@ -361,8 +368,8 @@ public String carritocompra(HttpServletRequest request, Model model, HttpServlet
 	}
 	session.setAttribute("sumaTotal", sumaTotal);
 	model.addAttribute("Suma", sumaTotal);
-	
-	return "url";
+	}
+	return url;
 }
 
 }
