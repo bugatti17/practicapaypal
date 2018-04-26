@@ -39,7 +39,14 @@ public class DAOArticulos implements DAOArticulosInterfaz {
 				}
 			
 			
-			
+			public DTOArticulos buscaPrecioArticulo(int id) {
+				String sql = "select Precio from articulos where Codigo = ?";
+				Object[] parametros = {id};
+				ArticulosMapper mapper = new ArticulosMapper();
+				List<DTOArticulos> articulos = this.jdbcTemplate.query(sql, parametros, mapper);
+				if (articulos.isEmpty()) return null;
+				else return articulos.get(0);
+			}
 			
 			
 	}

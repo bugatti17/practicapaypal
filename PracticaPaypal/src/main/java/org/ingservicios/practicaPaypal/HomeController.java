@@ -1,6 +1,7 @@
 package org.ingservicios.practicaPaypal;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -31,8 +32,11 @@ public class HomeController {
 	@Autowired
 	private DAOArticulosInterfaz dao2;
 	
-	//Preguntar al profesor sobre el dni
+	//DNI para poder guardarlo en una variable a la hora de utilizar para modificar usuario.
 	private String guardaDni="";
+	
+	private float sumaTotal=0;
+	
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -299,10 +303,66 @@ public String servletmodificar (HttpServletRequest request, Model model, HttpSer
 @RequestMapping(value="/Add", method= {RequestMethod.GET, RequestMethod.POST})
 public String add(HttpServletRequest request, Model model, HttpServletResponse resp) {
 	HttpSession session = request.getSession(true);
+	String accion = request.getParameter("accion_servlet");
+
 	
-	//Como añadir al carrito dependiendo del boton
+	ArrayList<Integer> itemsGuardados = (ArrayList) session.getAttribute("itemsGuardados");
+
+			if (itemsGuardados == null){
+			itemsGuardados = new ArrayList<Integer>();
+			}
+
+	
+	if (accion.equals("accion1")) {
+		int numeroElementos=0;
+		if(itemsGuardados.get(0)!=null) {
+			numeroElementos = itemsGuardados.get(0);
+		}else {
+			numeroElementos = 0;
+		}
+		
+		itemsGuardados.add(0,numeroElementos++);
+		session.setAttribute("itemsGuardados", itemsGuardados);
+		}
+		if (accion.equals("accion2")) {
+			int numeroElementos = itemsGuardados.get(0);
+			itemsGuardados.add(1,numeroElementos++);
+			session.setAttribute("itemsGuardados", itemsGuardados);
+		}
+
 	
 	return "listaArticulos";
+}
+
+
+@RequestMapping(value="/CarritoCompra", method= {RequestMethod.GET, RequestMethod.POST})
+public String carritocompra(HttpServletRequest request, Model model, HttpServletResponse resp) {
+	String url="";
+	
+	HttpSession session = request.getSession(true);
+	ArrayList <Integer> itemsGuardados = (ArrayList) session.getAttribute("itemsGuardados");
+	if (itemsGuardados == null) {
+		url = "listaArticulos";
+	}else {
+		url="carritoCompra";
+	}
+	
+	for(int pos=0; pos<itemsGuardados.get(pos);pos++) {
+		if(pos==0) {
+			int cantidad = itemsGuardados.get(pos);
+			float precio = dao2.buscaArticulo(pos).getPrecio();
+			sumaTotal+= (cantidad*precio);
+		}
+		if(pos==1) {
+			int cantidad = itemsGuardados.get(pos);
+			float precio = dao2.buscaArticulo(pos).getPrecio();
+			sumaTotal+= (cantidad*precio);
+		}
+	}
+	session.setAttribute("sumaTotal", sumaTotal);
+	model.addAttribute("Suma", sumaTotal);
+	
+	return "url";
 }
 
 }

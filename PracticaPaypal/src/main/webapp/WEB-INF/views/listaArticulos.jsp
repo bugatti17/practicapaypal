@@ -22,17 +22,26 @@
 <th><c:out value="${lista.codigo}" /></th>
 </tr>
 </c:forEach>
- 
- <!-- Prueba para el carrito  -->
-<th><form action="Add" method=post>
-<input type=submit value=Añadir></form>
-</th>
 </table>
+ <!-- Botones para el carrito  -->
+ <form action="Add" method=post>
+ <input type="hidden" name="accion_servlet" value="accion1">
+<input type=submit value=Añadir></form>
 
+
+<form action="Add" method=post>
+ <input type="hidden" name="accion_servlet" value="accion2">
+<input type=submit value=Añadir></form>
+
+
+<!-- Boton para modificar usuario -->
 <form action="Modificar" method=post>
 <input type=submit value=Modificar>
 </form>
 
+<!-- Boton pago total para llevarnos al carrito -->
+<form action="CarritoCompra" method=post>
+<input type=submit value=Pago></form>
 
 
 </body>
