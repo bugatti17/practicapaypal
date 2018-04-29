@@ -399,7 +399,36 @@ public String carrito(HttpServletRequest request, Model model, HttpServletRespon
 }
 
 
+@RequestMapping(value="/sigueComprando", method= {RequestMethod.GET, RequestMethod.POST})
+public String sigueComprando(HttpServletRequest request, Model model, HttpServletResponse resp) {
+	
+	HttpSession session = request.getSession(true);
+	
+	List <DTOArticulos> listaArticulos = dao2.leeArticulos();
+	model.addAttribute("listaArticulos", listaArticulos);
+	return "listaArticulos";
+	
 }
 
 
 
+@RequestMapping(value="/cancelaSuma", method= {RequestMethod.GET, RequestMethod.POST})
+public String cancelaSuma(HttpServletRequest request, Model model, HttpServletResponse resp) {
+
+	HttpSession session = request.getSession(true);
+	int itemsGuardados[] = new int[2];
+	
+	session.setAttribute("itemsGuardados", itemsGuardados);
+	
+	
+	
+	
+	
+	
+	List <DTOArticulos> listaArticulos = dao2.leeArticulos();
+	model.addAttribute("listaArticulos", listaArticulos);
+	
+	return "listaArticulos";
+	
+}
+}

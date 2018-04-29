@@ -11,6 +11,13 @@
  
 <p>Su cantidad a pagar en euros son:  ${Suma}</p>
 
+<!-- Boton que cancela el pago total -->
+<form action="cancelaSuma" method=post>
+<input type=submit value=CancelarPago></form>
+
+<!-- Boton que sigue comprando el pago total -->
+<form action="sigueComprando" method=post>
+<input type=submit value=sigueComprando></form>
 
 
 
