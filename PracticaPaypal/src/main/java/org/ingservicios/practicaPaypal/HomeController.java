@@ -43,6 +43,7 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession(true);
 		Cookie[] cookies= request.getCookies();
 		String cookieName = "Nombre";
 		String cookieValue = "";
@@ -86,6 +87,7 @@ public class HomeController {
 	
 	@RequestMapping(value = "/Servlet1", method = {RequestMethod.GET,RequestMethod.POST})
 	public String servlet1 (HttpServletRequest request, Model model, HttpServletResponse resp) {
+		HttpSession session = request.getSession(true);
 		String usuario = request.getParameter("username");
 		String pass = request.getParameter("pass");
 		//url a asignar dependiendo de si es administrador o no.
@@ -305,35 +307,54 @@ public String add(HttpServletRequest request, Model model, HttpServletResponse r
 	boolean bool = true;
 	HttpSession session = request.getSession(true);
 	String accion = request.getParameter("accion_servlet");
+	int numeroElementos=0;
 
-	
-	ArrayList<Integer> itemsGuardados = (ArrayList) session.getAttribute("itemsGuardados");
+	int itemsGuardados[] = (int[]) session.getAttribute("itemsGuardados");
+	//ArrayList<Integer> itemsGuardados = (ArrayList) session.getAttribute("itemsGuardados");
 
 			if (itemsGuardados == null){
-			itemsGuardados = new ArrayList<Integer>(2);
+			//itemsGuardados = new ArrayList<Integer>();
+			itemsGuardados = new int[2];
 			bool = false;
 			}
 
 	
 	if (accion.equals("accion1")) {
-		int numeroElementos=0;
 		if(bool!=false) {
 			
-			numeroElementos = itemsGuardados.get(0);
+			//numeroElementos = itemsGuardados.get(0).intValue();
+			numeroElementos = itemsGuardados[0];
 			
 		}else {
 			numeroElementos = 0;
 			bool=true;
 		}
 		
-		itemsGuardados.add(0,numeroElementos++);
+		//itemsGuardados.add(0,numeroElementos+1);
+		itemsGuardados[0] = numeroElementos + 1;
 		session.setAttribute("itemsGuardados", itemsGuardados);
 		}
 		if (accion.equals("accion2")) {
-			int numeroElementos = itemsGuardados.get(0);
+			/*
+			numeroElementos = itemsGuardados.get(0);
 			itemsGuardados.add(1,numeroElementos++);
 			session.setAttribute("itemsGuardados", itemsGuardados);
-		}
+			*/
+			if(bool!=false) {
+				
+				//numeroElementos = itemsGuardados.get(0).intValue();
+				numeroElementos = itemsGuardados[1];
+				
+			}else {
+				numeroElementos = 0;
+				bool=true;
+			}
+			
+			//itemsGuardados.add(0,numeroElementos+1);
+			itemsGuardados[1] = numeroElementos + 1;
+			session.setAttribute("itemsGuardados", itemsGuardados);
+			}
+		
 
 		List <DTOArticulos> listaArticulos = dao2.leeArticulos();
 		model.addAttribute("listaArticulos", listaArticulos);
@@ -345,25 +366,30 @@ public String add(HttpServletRequest request, Model model, HttpServletResponse r
 @RequestMapping(value="/Carrito", method= {RequestMethod.GET, RequestMethod.POST})
 public String carrito(HttpServletRequest request, Model model, HttpServletResponse resp) {
 	String url="";
-	
+	int cantidad1=0, cantidad2=0;
+	float precio1=0, precio2=0;
 	HttpSession session = request.getSession(true);
-	ArrayList <Integer> itemsGuardados = (ArrayList) session.getAttribute("itemsGuardados");
+	//ArrayList <Integer> itemsGuardados = (ArrayList) session.getAttribute("itemsGuardados");
+	int itemsGuardados[] = (int[]) session.getAttribute("itemsGuardados");
+	
 	if (itemsGuardados == null) {
 		url = "listaArticulos";
 	}else {
 		url="carritoCompra";
 	
 	
-	for(int pos=0; pos<=itemsGuardados.get(pos);pos++) {
+	for(int pos=0; pos<itemsGuardados.length;pos++) {
 		if(pos==0) {
-			int cantidad = itemsGuardados.get(pos);
-			float precio = dao2.buscaArticulo(pos).getPrecio();
-			sumaTotal+= (cantidad*precio);
+			
+			cantidad1 = itemsGuardados[pos];
+			precio1 = dao2.buscaArticulo(pos).getPrecio();
+			sumaTotal= (cantidad1*precio1);
 		}
 		if(pos==1) {
-			int cantidad = itemsGuardados.get(pos);
-			float precio = dao2.buscaArticulo(pos).getPrecio();
-			sumaTotal+= (cantidad*precio);
+			cantidad2 = itemsGuardados[pos];
+			//int cantidad = itemsGuardados.get(pos);
+			precio2 = dao2.buscaArticulo(pos).getPrecio();
+			sumaTotal=  (cantidad1*precio1)+(cantidad2*precio2);
 		}
 	}
 	session.setAttribute("sumaTotal", sumaTotal);
@@ -371,6 +397,7 @@ public String carrito(HttpServletRequest request, Model model, HttpServletRespon
 	}
 	return url;
 }
+
 
 }
 
