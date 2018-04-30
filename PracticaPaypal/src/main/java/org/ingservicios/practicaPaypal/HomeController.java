@@ -370,10 +370,18 @@ public String carrito(HttpServletRequest request, Model model, HttpServletRespon
 	int itemsGuardados[] = (int[]) session.getAttribute("itemsGuardados");
 	
 	if (itemsGuardados == null) {
+		//Nos permite mostrar un jsp en el que nos dice que no hay ningún producto seleccionado
+		model.addAttribute("Cantidad1", cantidad1);
+		model.addAttribute("Cantidad2", cantidad2);
+		url="carritoCompra";
+		
+		/*
 		url = "listaArticulos";
 		List <DTOArticulos> listaArticulos = dao2.leeArticulos();
 		model.addAttribute("listaArticulos", listaArticulos);
+		*/
 	}else {
+	
 		url="carritoCompra";
 	
 	
