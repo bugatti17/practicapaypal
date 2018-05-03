@@ -9,7 +9,7 @@
 </head>
 <body>
 <h2>Carrito de la compra </h2>
-<c:if test= "${Cantidad1 == 0 && Cantidad2 == 0}" >
+<c:if test= "${Cantidad1 == 0 && Cantidad2 == 0 && Cantidad3 == 0}" >
 <p>No hay nada para comprar</p>
 <!-- Boton que sigue comprando -->
 <form action="sigueComprando" method=post>
@@ -17,7 +17,7 @@
 </c:if>
 
 
-<c:if test= "${Cantidad1 > 0 || Cantidad2 > 0}" >
+<c:if test= "${Cantidad1 > 0 || Cantidad2 > 0 || Cantidad3 > 0}" >
  <p>Sus artículos elegidos son: </p>
  <c:if test="${Cantidad1 >0}">
  <p> Articulo con código 0: </p>
@@ -28,6 +28,11 @@
  <p> Articulo con código 1: </p>
  <p>Su cantidad elegida es: ${Cantidad2} </p>
  <p>El valor de cada artículo es: ${Precio2}</p>
+ </c:if>
+ <c:if test="${Cantidad3 >0}">
+ <p> Articulo con código 2: </p>
+ <p>Su cantidad elegida es: ${Cantidad3} </p>
+ <p>El valor de cada artículo es: ${Precio3}</p>
  </c:if>
  
 <p>Su cantidad a pagar en euros son:  ${Suma}</p>

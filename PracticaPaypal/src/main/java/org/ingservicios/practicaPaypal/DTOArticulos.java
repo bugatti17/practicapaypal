@@ -1,12 +1,16 @@
 package org.ingservicios.practicaPaypal;
 
+
 import java.io.Serializable;
+
 
 public class DTOArticulos implements Serializable{
 	//Datos de nuestra tabla
 		private String nombre;
 		private float precio;
 		private int codigo;
+		
+		
 		
 		
 		public DTOArticulos() {
@@ -19,9 +23,12 @@ public class DTOArticulos implements Serializable{
 			nombre=nombre2;
 			precio=precio2;
 			codigo=codigo2;
+
 			
 		}
 		
+		
+
 		public String getNombre() {
 			return nombre;
 		}

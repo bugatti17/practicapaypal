@@ -1,7 +1,6 @@
 package org.ingservicios.practicaPaypal;
 
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -96,6 +95,7 @@ public class HomeController {
 		
 		List <DTOUsuarios> lista = dao.leeUsuarios();
 		List <DTOArticulos> listaArticulos = dao2.leeArticulos();
+		
 		
 		if(dao.buscaAdmin(usuario, pass)!=null) {
 			Cookie c = new Cookie("Nombre", usuario);
@@ -311,7 +311,7 @@ public String add(HttpServletRequest request, Model model, HttpServletResponse r
 
 			if (itemsGuardados == null){
 			//itemsGuardados = new ArrayList<Integer>();
-			itemsGuardados = new int[2];
+			itemsGuardados = new int[3];
 			bool = false;
 			}
 
@@ -352,6 +352,22 @@ public String add(HttpServletRequest request, Model model, HttpServletResponse r
 			session.setAttribute("itemsGuardados", itemsGuardados);
 			}
 		
+		if (accion.equals("accion3")) {
+			if(bool!=false) {
+				
+				//numeroElementos = itemsGuardados.get(0).intValue();
+				numeroElementos = itemsGuardados[2];
+				
+			}else {
+				numeroElementos = 0;
+				bool=true;
+			}
+			
+			//itemsGuardados.add(0,numeroElementos+1);
+			itemsGuardados[2] = numeroElementos + 1;
+			session.setAttribute("itemsGuardados", itemsGuardados);
+			}
+		
 
 		List <DTOArticulos> listaArticulos = dao2.leeArticulos();
 		model.addAttribute("listaArticulos", listaArticulos);
@@ -363,8 +379,8 @@ public String add(HttpServletRequest request, Model model, HttpServletResponse r
 @RequestMapping(value="/Carrito", method= {RequestMethod.GET, RequestMethod.POST})
 public String carrito(HttpServletRequest request, Model model, HttpServletResponse resp) {
 	String url="";
-	int cantidad1=0, cantidad2=0;
-	float precio1=0, precio2=0;
+	int cantidad1=0, cantidad2=0, cantidad3=0;
+	float precio1=0, precio2=0, precio3=0;
 	HttpSession session = request.getSession(true);
 	//ArrayList <Integer> itemsGuardados = (ArrayList) session.getAttribute("itemsGuardados");
 	int itemsGuardados[] = (int[]) session.getAttribute("itemsGuardados");
@@ -373,6 +389,7 @@ public String carrito(HttpServletRequest request, Model model, HttpServletRespon
 		//Nos permite mostrar un jsp en el que nos dice que no hay ningún producto seleccionado
 		model.addAttribute("Cantidad1", cantidad1);
 		model.addAttribute("Cantidad2", cantidad2);
+		model.addAttribute("Cantidad3", cantidad3);
 		url="carritoCompra";
 		
 		/*
@@ -400,12 +417,21 @@ public String carrito(HttpServletRequest request, Model model, HttpServletRespon
 			sumaTotal=  (cantidad1*precio1)+(cantidad2*precio2);
 			
 		}
+		if(pos==2) {
+			cantidad3 = itemsGuardados[pos];
+			//int cantidad = itemsGuardados.get(pos);
+			precio3 = dao2.buscaArticulo(pos).getPrecio();
+			sumaTotal=  (cantidad1*precio1)+(cantidad2*precio2)+(cantidad3*precio3);
+			
+		}
 	}
 	
 	model.addAttribute("Cantidad1", cantidad1);
 	model.addAttribute("Precio1", precio1);
 	model.addAttribute("Cantidad2", cantidad2);
 	model.addAttribute("Precio2", precio2);
+	model.addAttribute("Cantidad3", cantidad3);
+	model.addAttribute("Precio3", precio3);	
 	session.setAttribute("sumaTotal", sumaTotal);
 	model.addAttribute("Suma", sumaTotal);
 	}
@@ -430,13 +456,9 @@ public String sigueComprando(HttpServletRequest request, Model model, HttpServle
 public String cancelaSuma(HttpServletRequest request, Model model, HttpServletResponse resp) {
 
 	HttpSession session = request.getSession(true);
-	int itemsGuardados[] = new int[2];
+	int itemsGuardados[] = new int[3];
 	
 	session.setAttribute("itemsGuardados", itemsGuardados);
-	
-	
-	
-	
 	
 	
 	List <DTOArticulos> listaArticulos = dao2.leeArticulos();

@@ -12,6 +12,7 @@ public class ArticulosMapper implements RowMapper <DTOArticulos>{
 		articulo.setNombre(rs.getString("Nombre"));
 		articulo.setPrecio(rs.getFloat("Precio"));
 		articulo.setCodigo(rs.getInt("Codigo"));
+		//articulo.setImagen(rs.getBlob("Imagen"));
 		return articulo;
 		}
 }
