@@ -19,6 +19,8 @@ DNI: <input type=text name= dni maxlength="8">
 <input type=submit value=Registro>
 </form>
 
+<a href="Inicio">Volver a la identificación</a>
+
 
 </body>
 </html>

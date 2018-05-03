@@ -16,6 +16,7 @@ Password: <input type=password name= pass>
 <br>
 <input type=submit value=Iniciar>
 </form>
+<a href="Registro">Registrarse</a>
 
 </body>
 </html>

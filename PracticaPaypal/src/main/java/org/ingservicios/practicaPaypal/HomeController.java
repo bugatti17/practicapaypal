@@ -68,6 +68,9 @@ public class HomeController {
 			List <DTOUsuarios> lista = dao.leeUsuarios();
 			model.addAttribute("lista", lista);
 			url="usuario";
+			}else if(cookieValue.equals("") && cookieValuePassword.equals("")) { //Si no hay cookie de noombre
+			//o cookie de password (Crea una cookie idSesion)
+			url="home";
 			}else{
 			List <DTOArticulos> listaArticulos = dao2.leeArticulos();
 			model.addAttribute("listaArticulos", listaArticulos);
@@ -83,6 +86,10 @@ public class HomeController {
 		return url;
 	}
 	
+	@RequestMapping(value = "/Inicio", method = {RequestMethod.GET,RequestMethod.POST})
+	public String volverInicio (HttpServletRequest request, Model model, HttpServletResponse resp) {
+		return "home";
+	}
 	
 	@RequestMapping(value = "/Servlet1", method = {RequestMethod.GET,RequestMethod.POST})
 	public String servlet1 (HttpServletRequest request, Model model, HttpServletResponse resp) {
@@ -136,7 +143,7 @@ public class HomeController {
 		
 		//Significa que el usuario no existe
 		if(!url.equals("usuario") && !url.equals("listaArticulos")) {
-			url="registro";
+			url="home";
 		}
 		
 		//En Spring se utiliza model.addAttribute en vez de req.setAttribute para 
@@ -151,11 +158,18 @@ public class HomeController {
 	
 	
 
+	@RequestMapping(value = "/Registro", method = {RequestMethod.GET,RequestMethod.POST})
+	public String registro (HttpServletRequest request, Model model, HttpServletResponse resp) {
+		
+	return "registro";
+	}
+	
 
-@RequestMapping(value = "/Servlet2", method = {RequestMethod.GET,RequestMethod.POST})
-public String servlet2 (HttpServletRequest request, Model model, HttpServletResponse resp) {
+	@RequestMapping(value = "/Servlet2", method = {RequestMethod.GET,RequestMethod.POST})
+	public String servlet2 (HttpServletRequest request, Model model, HttpServletResponse resp) {
 
-	//Parameter(...) es del html 
+	
+			//Parameter(...) es del html 
 			String usuario = request.getParameter("username");
 			//Lo añadimos al model
 			model.addAttribute("Nombre", usuario);
@@ -284,9 +298,6 @@ public String servletmodificar (HttpServletRequest request, Model model, HttpSer
 			guardaDni=dni;
 			
 			url="usuarioModificado";
-			
-			
-		
 			
 			
 			}
