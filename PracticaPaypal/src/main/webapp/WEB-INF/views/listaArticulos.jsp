@@ -68,7 +68,7 @@
     <div class="col-sm-4">
       <div class="panel panel-primary">
         <div class="panel-heading">BLACK FRIDAY DEAL</div>
-        <div class="panel-body"><img src="/practicaPaypal/resources/pantalon.jpg" class="img-responsive" style="width:100%"></div>
+        <div class="panel-body"><img src="/practicaPaypal/resources/pantalones.jpg" class="img-responsive" style="width:100%"></div>
         <div class="panel-footer">Articulo: ${lista.nombre}<br>Precio: ${lista.precio }
        <!-- Botones para el carrito  -->
 	 <form action="Add" method=post>
