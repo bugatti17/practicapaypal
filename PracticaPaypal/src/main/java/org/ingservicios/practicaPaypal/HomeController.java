@@ -203,29 +203,18 @@ public class HomeController {
 			
 			DTOUsuarios usuarioDTO = new DTOUsuarios(usuario,password,email,dni);
 
-			boolean variable=false;
 			String url="";
 			
-			if(dao.buscaUsuario(usuario, email, dni)==true) {//Busca usuario a través de correo,user,dni
+			if(dao.buscaUsuario(usuario, email, dni)==true || dao.buscaUsuarioEmail(usuario, email)!=null
+					|| dao.buscaUsuario(dni)!=null) {//Busca usuario a través de correo,user,dni
 					
 				    url="usuarioYaRegistrado";
-					variable=true;
-			}
+			}else {
 
-			if(variable==false) { 
-				boolean variable2=false;
-				//for(int pos=0;pos<lista.size();pos++) {
-					if(dao.buscaUsuario(dni)!=null) {
-
-					url="usuarioYaRegistrado";
-				variable2=true;
-					}
-
-				if(variable2==false) {
 					dao.addUsuario(usuarioDTO);
 					url="usuarioRegistrado";
 				}
-			}
+			
 			return url;
 }
 
