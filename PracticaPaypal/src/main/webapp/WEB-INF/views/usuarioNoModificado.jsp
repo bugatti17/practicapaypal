@@ -8,5 +8,8 @@
 </head>
 <body>
 <h1>El usuario no ha sido modificado.</h1>
+<form action="sigueComprando" method=post>
+<input type=submit value=Tienda></form>
+
 </body>		
 </html>

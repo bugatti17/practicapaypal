@@ -202,31 +202,25 @@ public class HomeController {
 			resp.addCookie(c2);
 			
 			DTOUsuarios usuarioDTO = new DTOUsuarios(usuario,password,email,dni);
-		
-			//List <DTOUsuarios> lista = dao.leeUsuarios();
-			
+
 			boolean variable=false;
 			String url="";
-			//for(int pos=0;pos<lista.size();pos++) {
-				//if(lista.get(pos).getDni().equals(dni) && lista.get(pos).getEmail().equals(email) && 
-					//	lista.get(pos).getNombre().equals(usuario)) {
 			
 			if(dao.buscaUsuario(usuario, email, dni)==true) {//Busca usuario a través de correo,user,dni
 					
 				    url="usuarioYaRegistrado";
 					variable=true;
 			}
-				//}
-			//}
+
 			if(variable==false) { 
 				boolean variable2=false;
 				//for(int pos=0;pos<lista.size();pos++) {
 					if(dao.buscaUsuario(dni)!=null) {
-					//if(lista.get(pos).getDni().equals(dni)) {
+
 					url="usuarioYaRegistrado";
 				variable2=true;
 					}
-				//}
+
 				if(variable2==false) {
 					dao.addUsuario(usuarioDTO);
 					url="usuarioRegistrado";
@@ -251,8 +245,8 @@ public String servletmodificar (HttpServletRequest request, Model model, HttpSer
 	String cookieNamePassword = "Password";
 	String cookieValuePassword = "";
 	
-	
-	String url="";
+	//Debido a return url si no encuentra el usuario segun sus cookies
+	String url="usuarioNoModificado";
 	
 	if(cookies != null) {
 		for(Cookie cookie: cookies) {
@@ -266,27 +260,38 @@ public String servletmodificar (HttpServletRequest request, Model model, HttpSer
 			
 			
 		}
-		if(dao.buscaUsuario(cookieValue, cookieValuePassword)!= null) {
-			
-			
-			//Parameter(...) es del jsp
-			String usuario = request.getParameter("username");
-			//Lo añadimos al model
-			model.addAttribute("Nombre", usuario);
-			
-			String password = request.getParameter("pass");
-			//Lo añadimos al model
-			model.addAttribute("Password", password);
-			
-			String email = request.getParameter("email");
-			//Lo añadimos al model
-			model.addAttribute("Email", email);	
-			
-			String dni = request.getParameter("dni");
-			//Lo añadimos al model
-			model.addAttribute("DNI", dni);
-			
-			
+		
+
+		
+	if(dao.buscaUsuario(cookieValue, cookieValuePassword)!= null) {
+		
+		
+		//Parameter(...) es del jsp
+		String usuario = request.getParameter("username");
+		//Lo añadimos al model
+		model.addAttribute("Nombre", usuario);
+		
+		String password = request.getParameter("pass");
+		//Lo añadimos al model
+		model.addAttribute("Password", password);
+		
+		String email = request.getParameter("email");
+		//Lo añadimos al model
+		model.addAttribute("Email", email);	
+		
+		String dni = request.getParameter("dni");
+		//Lo añadimos al model
+		model.addAttribute("DNI", dni);
+		
+		
+		
+		
+		
+		
+		//A poder ser, añadir casos en los que el usuario introduzca dni que ya hay en la base de datos.
+		if((dao.buscaUsuario(dni)!=null && dao.buscaUsuario(dni).getDni().equals(guardaDni)) || 
+				dao.buscaUsuario(dni)==null ) {
+			DTOUsuarios usuarioDTO = new DTOUsuarios(usuario,password,email,dni);
 			Cookie c = new Cookie("Nombre", usuario);
 			Cookie c2 = new Cookie ("Password", password);
 			c.setPath("/");
@@ -299,23 +304,22 @@ public String servletmodificar (HttpServletRequest request, Model model, HttpSer
 			resp.addCookie(c2);
 			
 			
-			DTOUsuarios usuarioDTO = new DTOUsuarios(usuario,password,email,dni);
-			
-			//A poder ser, añadir casos en los que el usuario introduzca dni que ya hay en la base de datos.
-			dao.modificaUsuario(usuarioDTO, guardaDni);
-			
-			//A continuación, le asignamos el nuevo DNI, por si el usuario quiere volver a modificar sus 
-			//datos de nuevo.
-			guardaDni=dni;
-			
-			url="usuarioModificado";
-			
-			
-			}
-		return url;
+		dao.modificaUsuario(usuarioDTO, guardaDni);
+		
+		//A continuación, le asignamos el nuevo DNI, por si el usuario quiere volver a modificar sus 
+		//datos de nuevo.
+		guardaDni=dni;
+		
+		url="usuarioModificado";
+		}else {
+			url="usuarioNoModificado";
+		}
+		
+		}
+	return url;
 
-	}
-	return "usuarioNoModificado";
+}
+return "usuarioNoModificado";
 
 
 }
