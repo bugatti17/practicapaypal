@@ -8,5 +8,6 @@
 </head>
 <body>
 <h1>El usuario ha sido registrado correctamente.</h1>
+
 </body>		
 </html>

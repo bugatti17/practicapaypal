@@ -68,13 +68,14 @@ public class HomeController {
 			List <DTOUsuarios> lista = dao.leeUsuarios();
 			model.addAttribute("lista", lista);
 			url="usuario";
-			}else if(cookieValue.equals("") && cookieValuePassword.equals("")) { //Si no hay cookie de noombre
-			//o cookie de password (Crea una cookie idSesion)
-			url="home";
+			}else if(!cookieValue.equals("Admin") && !cookieValuePassword.equals("12345")) { 
+				List <DTOArticulos> listaArticulos = dao2.leeArticulos();
+				model.addAttribute("listaArticulos", listaArticulos);
+				url="listaArticulos";
+			
 			}else{
-			List <DTOArticulos> listaArticulos = dao2.leeArticulos();
-			model.addAttribute("listaArticulos", listaArticulos);
-			url="listaArticulos";
+			//Si no hay cookie de noombre o cookie de password (Crea una cookie idSesion)
+				url="home";
 			}
 			
 		}else {
@@ -168,7 +169,7 @@ public class HomeController {
 	@RequestMapping(value = "/Servlet2", method = {RequestMethod.GET,RequestMethod.POST})
 	public String servlet2 (HttpServletRequest request, Model model, HttpServletResponse resp) {
 
-	
+			HttpSession session = request.getSession(true);
 			//Parameter(...) es del html 
 			String usuario = request.getParameter("username");
 			//Lo añadimos al model
@@ -229,11 +230,11 @@ public class HomeController {
 }
 
 
-@RequestMapping(value="/Modificar", method= {RequestMethod.GET, RequestMethod.POST})
-public String modificar(HttpServletRequest request, Model model, HttpServletResponse resp) {
-	
-	return "modificacion";
-}
+		@RequestMapping(value="/Modificar", method= {RequestMethod.GET, RequestMethod.POST})
+		public String modificar(HttpServletRequest request, Model model, HttpServletResponse resp) {
+			
+			return "modificacion";
+		}
 
 @RequestMapping(value = "/ServletModificar", method = {RequestMethod.GET,RequestMethod.POST})
 public String servletmodificar (HttpServletRequest request, Model model, HttpServletResponse resp) {

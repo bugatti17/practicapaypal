@@ -20,4 +20,4 @@ DNI: <input type=text name= dni maxlength="8">
 <input type=submit value=Modificar>
 </form>
 </body>
-</html>
+</html> 

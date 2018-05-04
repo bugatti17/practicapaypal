@@ -46,9 +46,21 @@
 <input type=submit value=sigueComprando></form>
 
 <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
-<input type="hidden" name="cmd" value="_s-xclick">
-<input type="hidden" name="hosted_button_id" value="SW4CE4T27KA6E">
+<input type="hidden" name="cmd" value="_xclick">
+<input type="hidden" name="business" value="aom00033-facilitator@red.ujaen.es">
+<input type="hidden" name="lc" value="ES">
+
+<input type="hidden" name="item_name" value="Comprar Ahora">
+<input type="hidden" name="button_subtype" value="services">
+<input type="hidden" name="no_note" value="0">
+<input type="hidden" name="cn" value="Añadir instrucciones especiales para el vendedor:">
+<input type="hidden" name="no_shipping" value="2">
+<input type="hidden" name="rm" value="1">
+<input type="hidden" name="currency_code" value="EUR">
 <input type="hidden" name="amount" value="${Suma}">
+<input type="hidden" name="return" value="http://localhost:8080/practicaPaypal/">
+<input type="hidden" name="cancel_return" value="http://localhost:8080/practicaPaypal/">
+<input type="hidden" name="bn" value="PP-BuyNowBF:btn_paynowCC_LG.gif:NonHosted">
 <input type="image" src="https://www.sandbox.paypal.com/es_ES/ES/i/btn/btn_paynowCC_LG.gif" border="0" name="submit" alt="PayPal, la forma rápida y segura de pagar en Internet.">
 <img alt="" border="0" src="https://www.sandbox.paypal.com/es_ES/i/scr/pixel.gif" width="1" height="1">
 </form>
