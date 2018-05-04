@@ -42,7 +42,7 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession(true);
+		HttpSession session = request.getSession(false);
 		Cookie[] cookies= request.getCookies();
 		String cookieName = "Nombre";
 		String cookieValue = "";
@@ -68,14 +68,14 @@ public class HomeController {
 			List <DTOUsuarios> lista = dao.leeUsuarios();
 			model.addAttribute("lista", lista);
 			url="usuario";
-			}else if(!cookieValue.equals("Admin") && !cookieValuePassword.equals("12345")) { 
+			}else if(cookieValue.equals("") && cookieValuePassword.equals("")) { 
+				//Si no hay cookie de noombre o cookie de password (Crea una cookie idSesion)
+				url="home";	
+			
+			}else{
 				List <DTOArticulos> listaArticulos = dao2.leeArticulos();
 				model.addAttribute("listaArticulos", listaArticulos);
 				url="listaArticulos";
-			
-			}else{
-			//Si no hay cookie de noombre o cookie de password (Crea una cookie idSesion)
-				url="home";
 			}
 			
 		}else {
@@ -109,8 +109,10 @@ public class HomeController {
 			Cookie c = new Cookie("Nombre", usuario);
 			Cookie c2 = new Cookie ("Password", pass);
 			c.setPath("/");
+			c.setMaxAge(-1);
 			resp.addCookie(c);
 			c2.setPath("/");
+			c2.setMaxAge(-1);
 			resp.addCookie(c2);
 			
 			url="usuario";
@@ -121,8 +123,10 @@ public class HomeController {
 				Cookie c = new Cookie("Nombre", usuario);
 				Cookie c2 = new Cookie ("Password", pass);
 				c.setPath("/");
+				c.setMaxAge(-1);
 				resp.addCookie(c);
 				c2.setPath("/");
+				c2.setMaxAge(-1);
 				resp.addCookie(c2);
 				
 				
@@ -191,8 +195,10 @@ public class HomeController {
 			Cookie c = new Cookie("Nombre", usuario);
 			Cookie c2 = new Cookie ("Password", password);
 			c.setPath("/");
+			c.setMaxAge(-1);
 			resp.addCookie(c);
 			c2.setPath("/");
+			c2.setMaxAge(-1);
 			resp.addCookie(c2);
 			
 			DTOUsuarios usuarioDTO = new DTOUsuarios(usuario,password,email,dni);
@@ -284,8 +290,12 @@ public String servletmodificar (HttpServletRequest request, Model model, HttpSer
 			Cookie c = new Cookie("Nombre", usuario);
 			Cookie c2 = new Cookie ("Password", password);
 			c.setPath("/");
+			/* Se supone que borra las cookies,pero no es asi
+			c.setMaxAge(-1); */
 			resp.addCookie(c);
 			c2.setPath("/");
+			/* Se supone que borra las cookies,pero no es asi
+			c2.setMaxAge(-1); */
 			resp.addCookie(c2);
 			
 			
@@ -479,4 +489,24 @@ public String cancelaSuma(HttpServletRequest request, Model model, HttpServletRe
 	return "listaArticulos";
 	
 }
+
+@RequestMapping(value="/cerrarSesion", method= {RequestMethod.GET, RequestMethod.POST})
+public String cierraSesion(HttpServletRequest request, Model model, HttpServletResponse resp) {
+
+	HttpSession session = request.getSession(true);
+	session.invalidate();
+	
+	//Necesitamos mandar las cookies de nuevo vacías, (no borrado)
+	Cookie c = new Cookie("Nombre", "");
+	Cookie c2 = new Cookie ("Password", "");
+	c.setPath("/");
+	resp.addCookie(c);
+	c2.setPath("/");
+	resp.addCookie(c2);
+	
+	
+	return "home";
+	
+}
+
 }
