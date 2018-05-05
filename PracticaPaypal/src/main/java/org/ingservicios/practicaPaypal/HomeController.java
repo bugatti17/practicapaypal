@@ -308,7 +308,7 @@ public String servletmodificar (HttpServletRequest request, Model model, HttpSer
 	return url;
 
 }
-return "usuarioNoModificado";
+return url;
 
 
 }
