@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
-  <title>Tienda Online</title>
+  <title>Tu Tienda Online</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -12,10 +12,14 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
+
+
+
+
   <style>
     /* Remove the navbar's default rounded borders and increase the bottom margin */ 
     .navbar {
-      margin-bottom: 50px;
+      margin-bottom: 150px;
       border-radius: 0;
     }
     
@@ -32,16 +36,19 @@
 
 
  footer {
-      background-color: #f2f2f2;
-      padding: 25px;
+      background-color: #d1d1d1;
+      padding: 20px;
     }
   </style>
 </head>
 <body>
 
+
+
+
 <div class="jumbotron">
   <div class="container text-center">
-    <h1>Tienda Online</h1>      
+    <h1>Tu tienda online de bicicletas</h1>      
   </div>
 </div>
 
@@ -57,23 +64,23 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="sigueComprando">Home</a></li>
-        <li><a href="Modificar">Ajustes de perfil</a></li>
+        <li class="active"><a href="sigueComprando">Inicio</a></li>
+        <li><a href="Modificar">Modificar Usuario</a></li>
         <li><a href="cerrarSesion">Cerrar sesión</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="Carrito"><span class="glyphicon glyphicon-shopping-cart"></span> Carrito</a></li>
+        <li><a href="Carrito">Carrito de Productos</a></li>
       </ul>
     </div>
   </div>
 </nav>
+
+<text align="center">
 <div class="container"> 
 <h4>
 <c:if test= "${Cantidad1 == 0 && Cantidad2 == 0 && Cantidad3 == 0}" >
-<p>No hay nada para comprar</p>
+<p>Su Carrito está vacío</p>
 <!-- Boton que sigue comprando -->
 <form action="sigueComprando" method=post>
-<input type=submit value=sigueComprando></form>
+<input type=submit value="Volver a la tienda"></form>
 </c:if>
 
 
@@ -82,28 +89,32 @@
  <c:if test="${Cantidad1 >0}">
  <p> Articulo con código 0: </p>
  <p>Su cantidad elegida es: ${Cantidad1} </p>
- <p>El valor de cada artículo es: ${Precio1}</p>
+ <p><b>El precio total del primer articulo es: ${Precio1}</b></p>
  </c:if>
  <c:if test="${Cantidad2 >0}">
  <p> Articulo con código 1: </p>
  <p>Su cantidad elegida es: ${Cantidad2} </p>
- <p>El valor de cada artículo es: ${Precio2}</p>
+ <p><b>El precio total del segundo articulo es: ${Precio2}</b></p>
  </c:if>
  <c:if test="${Cantidad3 >0}">
  <p> Articulo con código 2: </p>
  <p>Su cantidad elegida es: ${Cantidad3} </p>
- <p>El valor de cada artículo es: ${Precio3}</p>
+ <p><b>El precio total del tercer articulo es: ${Precio3}</b></p>
  </c:if>
  
-<p>Su cantidad a pagar en euros son:  ${Suma}</p>
+ <p></p>
+ <p></p>
+ <p></p>
+ <p></p>
+<p><FONT size=5><strong>Su cantidad total a pagar en euros es de:  ${Suma}</strong></FONT></p>
 
 <!-- Boton que cancela el pago total -->
 <form action="cancelaSuma" method=post>
-<input type=submit value=CancelarPago></form>
+<input type=submit value=Cancelar></form>
 
 <!-- Boton que sigue comprando -->
 <form action="sigueComprando" method=post>
-<input type=submit value=sigueComprando></form>
+<input type=submit value="Volver a la tienda"></form>
 
 <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
 <input type="hidden" name="cmd" value="_xclick">
@@ -118,7 +129,7 @@
 <input type="hidden" name="rm" value="1">
 <input type="hidden" name="currency_code" value="EUR">
 <input type="hidden" name="amount" value="${Suma}">
-<input type="hidden" name="return" value="http://localhost:8080/practicaPaypal/">
+<input type="hidden" name="return" value="http://localhost:8081/practicaPaypal/">
 <input type="hidden" name="cancel_return" value="http://localhost:8080/practicaPaypal/">
 <input type="hidden" name="bn" value="PP-BuyNowBF:btn_paynowCC_LG.gif:NonHosted">
 <input type="image" src="https://www.sandbox.paypal.com/es_ES/ES/i/btn/btn_paynowCC_LG.gif" border="0" name="submit" alt="PayPal, la forma rápida y segura de pagar en Internet.">
@@ -126,15 +137,16 @@
 </form>
 </c:if>
 
-</h4>
+</text>
 </div>
+</h4>
+
+
 <footer class="container-fluid text-center">
   <p>Tienda Online Copyright</p>  
-  <form class="form-inline">Get deals:
-    <input type="email" class="form-control" size="50" placeholder="Email Address">
-    <button type="button" class="btn btn-danger">Sign Up</button>
-  </form>
+ <p>José Antonio & Juan Francisco</p>
 </footer>
+
 
 
 

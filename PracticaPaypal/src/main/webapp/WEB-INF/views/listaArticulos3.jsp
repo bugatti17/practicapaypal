@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Articulos</title>
+<title>Tu Tienda online</title>
 </head>
 <body>
 <table border = "1">
@@ -21,7 +21,7 @@
 <th><c:out value="${lista.nombre}" /></th>
 <th><c:out value="${lista.precio}" /></th>
 <th><c:out value="${lista.codigo}" /></th>
-<img src="/practicaPaypal/resources/pantalon.jpg">
+
 </tr>
 </c:forEach>
 

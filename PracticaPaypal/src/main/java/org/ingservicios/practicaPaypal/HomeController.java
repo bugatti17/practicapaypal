@@ -17,13 +17,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-/**
- * Handles requests for the application home page.
- */
+
 @Controller
 public class HomeController {
 	
-	//Al marcarlo con @Autowired, se inyectará, como una instancia de dao, 
+	//Al marcarlo con @Autowired, se inyecta como una instancia de dao, 
 	//un bean de una clase que implemente el interfaz DAOUsuariosInterfaz
 	@Autowired
 	private DAOUsuariosInterfaz dao;
@@ -33,13 +31,10 @@ public class HomeController {
 	
 	//DNI para poder guardarlo en una variable a la hora de utilizar para modificar usuario.
 	private String guardaDni="";
-	
+	//Lo usamos para calcular después la suma del carrito
 	private float sumaTotal=0;
 	
 	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
@@ -61,7 +56,6 @@ public class HomeController {
 					cookieValuePassword = cookie.getValue();
 				}
 				
-				
 			}
 			
 			if(cookieValue.equals("Admin") && cookieValuePassword.equals("12345")) {
@@ -69,7 +63,7 @@ public class HomeController {
 			model.addAttribute("lista", lista);
 			url="usuario";
 			}else if(cookieValue.equals("") && cookieValuePassword.equals("")) { 
-				//Si no hay cookie de noombre o cookie de password (Crea una cookie idSesion)
+				//Si no hay cookie de nombre de password creamos una cookie idSesion)
 				url="home";	
 			
 			}else{
@@ -97,7 +91,7 @@ public class HomeController {
 		HttpSession session = request.getSession(true);
 		String usuario = request.getParameter("username");
 		String pass = request.getParameter("pass");
-		//url a asignar dependiendo de si es administrador o no.
+		//Dependiendo de si es administrador o no se le asignaremos una url.
 		String url="";
 
 		
@@ -132,12 +126,11 @@ public class HomeController {
 				
 				DTOUsuarios dto = new DTOUsuarios();
 				dto=dao.buscaUsuario(usuario, pass);
-				//En Spring se utiliza model.addAttribute en vez de req.setAttribute para 
-				//agregar el atributo proporcionado bajo el nombre proporcionado.
+				//En Spring se usa model.addAttribute, en vez de req.setAttribute que usábamos en los servlets, para agregar el atributo proporcionado bajo
+				//el nombre proporcionado.
 				model.addAttribute("dto", dto);
 				
-				/* Necesitamos guardar el DNI, ya que es clave primaria en la base de datos,
-				y lo utilizaremos para poder modificar los datos de un usuario.*/
+				// Guardamos el DNI al ser clave primaria en la base de datos y utilizarlo para modificar los datos de un usuario.
 				guardaDni=dto.getDni();
 				
 				
@@ -151,8 +144,6 @@ public class HomeController {
 			url="home";
 		}
 		
-		//En Spring se utiliza model.addAttribute en vez de req.setAttribute para 
-		//agregar el atributo proporcionado bajo el nombre proporcionado.
 		model.addAttribute("lista", lista);
 		model.addAttribute("listaArticulos", listaArticulos);
 		
@@ -206,7 +197,7 @@ public class HomeController {
 			String url="";
 			
 			if(dao.buscaUsuario(usuario, email, dni)==true || dao.buscaUsuarioEmail(usuario, email)!=null
-					|| dao.buscaUsuario(dni)!=null) {//Busca usuario a través de correo,user,dni
+					|| dao.buscaUsuario(dni)!=null) {//Buscamos para ver si el usuario ya ha sido registrado
 					
 				    url="usuarioYaRegistrado";
 			}else {
@@ -234,7 +225,7 @@ public String servletmodificar (HttpServletRequest request, Model model, HttpSer
 	String cookieNamePassword = "Password";
 	String cookieValuePassword = "";
 	
-	//Debido a return url si no encuentra el usuario segun sus cookies
+	//Sii no encuentra el usuario según sus cookies
 	String url="usuarioNoModificado";
 	
 	if(cookies != null) {
@@ -254,8 +245,6 @@ public String servletmodificar (HttpServletRequest request, Model model, HttpSer
 		
 	if(dao.buscaUsuario(cookieValue, cookieValuePassword)!= null) {
 		
-		
-		//Parameter(...) es del jsp
 		String usuario = request.getParameter("username");
 		//Lo añadimos al model
 		model.addAttribute("Nombre", usuario);
@@ -271,39 +260,28 @@ public String servletmodificar (HttpServletRequest request, Model model, HttpSer
 		String dni = request.getParameter("dni");
 		//Lo añadimos al model
 		model.addAttribute("DNI", dni);
-		
-		
-		
-		
-		
-		
-		//A poder ser, añadir casos en los que el usuario introduzca dni que ya hay en la base de datos.
+				
+		//El usuario introduce dni que ya está en la base de datos.
 		if((dao.buscaUsuario(dni)!=null && dao.buscaUsuario(dni).getDni().equals(guardaDni)) || 
 				dao.buscaUsuario(dni)==null ) {
 			DTOUsuarios usuarioDTO = new DTOUsuarios(usuario,password,email,dni);
 			Cookie c = new Cookie("Nombre", usuario);
 			Cookie c2 = new Cookie ("Password", password);
 			c.setPath("/");
-			/* Se supone que borra las cookies,pero no es asi
-			c.setMaxAge(-1); */
 			resp.addCookie(c);
 			c2.setPath("/");
-			/* Se supone que borra las cookies,pero no es asi
-			c2.setMaxAge(-1); */
 			resp.addCookie(c2);
 			
 			
 		dao.modificaUsuario(usuarioDTO, guardaDni);
 		
-		//A continuación, le asignamos el nuevo DNI, por si el usuario quiere volver a modificar sus 
-		//datos de nuevo.
+		//Volvemos a guardar el DNI por si el usuario quiere hacer otra modificacion
 		guardaDni=dni;
 		
 		url="usuarioModificado";
 		}else {
 			url="usuarioNoModificado";
 		}
-		
 		}
 	return url;
 
@@ -322,10 +300,8 @@ public String add(HttpServletRequest request, Model model, HttpServletResponse r
 	int numeroElementos=0;
 
 	int itemsGuardados[] = (int[]) session.getAttribute("itemsGuardados");
-	//ArrayList<Integer> itemsGuardados = (ArrayList) session.getAttribute("itemsGuardados");
 
 			if (itemsGuardados == null){
-			//itemsGuardados = new ArrayList<Integer>();
 			itemsGuardados = new int[3];
 			bool = false;
 			}
@@ -334,7 +310,6 @@ public String add(HttpServletRequest request, Model model, HttpServletResponse r
 	if (accion.equals("accion1")) {
 		if(bool!=false) {
 			
-			//numeroElementos = itemsGuardados.get(0).intValue();
 			numeroElementos = itemsGuardados[0];
 			
 		}else {
@@ -342,19 +317,12 @@ public String add(HttpServletRequest request, Model model, HttpServletResponse r
 			bool=true;
 		}
 		
-		//itemsGuardados.add(0,numeroElementos+1);
 		itemsGuardados[0] = numeroElementos + 1;
 		session.setAttribute("itemsGuardados", itemsGuardados);
 		}
 		if (accion.equals("accion2")) {
-			/*
-			numeroElementos = itemsGuardados.get(0);
-			itemsGuardados.add(1,numeroElementos++);
-			session.setAttribute("itemsGuardados", itemsGuardados);
-			*/
+
 			if(bool!=false) {
-				
-				//numeroElementos = itemsGuardados.get(0).intValue();
 				numeroElementos = itemsGuardados[1];
 				
 			}else {
@@ -362,23 +330,18 @@ public String add(HttpServletRequest request, Model model, HttpServletResponse r
 				bool=true;
 			}
 			
-			//itemsGuardados.add(0,numeroElementos+1);
 			itemsGuardados[1] = numeroElementos + 1;
 			session.setAttribute("itemsGuardados", itemsGuardados);
 			}
 		
 		if (accion.equals("accion3")) {
 			if(bool!=false) {
-				
-				//numeroElementos = itemsGuardados.get(0).intValue();
 				numeroElementos = itemsGuardados[2];
 				
 			}else {
 				numeroElementos = 0;
 				bool=true;
 			}
-			
-			//itemsGuardados.add(0,numeroElementos+1);
 			itemsGuardados[2] = numeroElementos + 1;
 			session.setAttribute("itemsGuardados", itemsGuardados);
 			}
@@ -397,25 +360,22 @@ public String carrito(HttpServletRequest request, Model model, HttpServletRespon
 	int cantidad1=0, cantidad2=0, cantidad3=0;
 	float precio1=0, precio2=0, precio3=0;
 	HttpSession session = request.getSession(true);
-	//ArrayList <Integer> itemsGuardados = (ArrayList) session.getAttribute("itemsGuardados");
 	int itemsGuardados[] = (int[]) session.getAttribute("itemsGuardados");
 	
 	if (itemsGuardados == null) {
-		//Nos permite mostrar un jsp en el que nos dice que no hay ningún producto seleccionado
+		//jsp diciendo que no hay productos
 		model.addAttribute("Cantidad1", cantidad1);
 		model.addAttribute("Cantidad2", cantidad2);
 		model.addAttribute("Cantidad3", cantidad3);
 		url="carritoCompra";
 		
-		/*
 		url = "listaArticulos";
 		List <DTOArticulos> listaArticulos = dao2.leeArticulos();
 		model.addAttribute("listaArticulos", listaArticulos);
-		*/
+		
 	}else {
 	
 		url="carritoCompra";
-	
 	
 	for(int pos=0; pos<itemsGuardados.length;pos++) {
 		if(pos==0) {
@@ -427,14 +387,12 @@ public String carrito(HttpServletRequest request, Model model, HttpServletRespon
 		}
 		if(pos==1) {
 			cantidad2 = itemsGuardados[pos];
-			//int cantidad = itemsGuardados.get(pos);
 			precio2 = dao2.buscaArticulo(pos).getPrecio();
 			sumaTotal=  (cantidad1*precio1)+(cantidad2*precio2);
 			
 		}
 		if(pos==2) {
 			cantidad3 = itemsGuardados[pos];
-			//int cantidad = itemsGuardados.get(pos);
 			precio3 = dao2.buscaArticulo(pos).getPrecio();
 			sumaTotal=  (cantidad1*precio1)+(cantidad2*precio2)+(cantidad3*precio3);
 			
@@ -489,7 +447,7 @@ public String cierraSesion(HttpServletRequest request, Model model, HttpServletR
 	HttpSession session = request.getSession(true);
 	session.invalidate();
 	
-	//Necesitamos mandar las cookies de nuevo vacías, (no borrado)
+	//Mandamos las cookies vacías, (no borrado)
 	Cookie c = new Cookie("Nombre", "");
 	Cookie c2 = new Cookie ("Password", "");
 	c.setPath("/");

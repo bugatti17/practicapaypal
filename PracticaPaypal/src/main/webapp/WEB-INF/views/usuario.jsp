@@ -6,7 +6,7 @@ pageEncoding="ISO-8859-1"%>
 
 <html>
 <head>
-	<title>Tabla Usuarios</title>
+	<title>Tu Tienda online</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -37,7 +37,7 @@ pageEncoding="ISO-8859-1"%>
 <div class="limiter">
 		<div class="container-login100" style="background-image: url('resources/images/bg-01.jpg');">
 			<div class="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33">
-Usuarios registrados en la tienda		
+Usuarios registrados por el sistema en la tienda		
 <table border = "1">
 <tr>
 <th> Nombre </th>

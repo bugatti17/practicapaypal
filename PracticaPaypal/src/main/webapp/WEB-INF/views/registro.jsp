@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="ISO-8859-1">
-	<title>Registrar</title>
+	<title>Tu Tienda online</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -42,20 +42,20 @@
 						Usuario
 						</span>
 					</div>
-					<div class="wrap-input100 validate-input" data-validate = "Username is required">
+					<div class="wrap-input100 validate-input" data-validate = "Debes introducir el usuario">
 						<input class="input100" type="text" name="username" >
 						<span class="focus-input100"></span>
 					</div>
 					
 					<div class="p-t-13 p-b-9">
 						<span class="txt1">
-							Password
+							Contraseña
 						</span>
 
 						
 					</div>
 					
-					<div class="wrap-input100 validate-input" data-validate = "Password is required">
+					<div class="wrap-input100 validate-input" data-validate = "Debes introducir la contraseña">
 						<input class="input100" type="password" name="pass" >
 						<span class="focus-input100"></span>
 					</div>
@@ -64,7 +64,7 @@
 						Email
 						</span>
 					</div>
-					<div class="wrap-input100 validate-input" data-validate = "Email is required">
+					<div class="wrap-input100 validate-input" data-validate = "Debes introducir el email">
 						<input class="input100" type="email" name="email" >
 						<span class="focus-input100"></span>
 					</div>
@@ -73,8 +73,8 @@
 						DNI
 						</span>
 					</div>
-					<div class="wrap-input100 validate-input" data-validate = "DNI is required">
-						<input class="input100" type="text" name="dni" maxlength="8">
+					<div class="wrap-input100 validate-input" data-validate = "Debes introducir el DNI">
+						<input class="input100" type="text" name="dni" maxlength="9">
 						<span class="focus-input100"></span>
 					</div>
 					

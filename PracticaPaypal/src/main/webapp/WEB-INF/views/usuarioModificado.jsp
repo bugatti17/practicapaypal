@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
-  <title>Tienda Online</title>
+  <title>Tu Tienda online</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -54,7 +54,7 @@
 
 <div class="jumbotron">
   <div class="container text-center">
-    <h1>Tienda Online</h1>      
+    <h1>Tu tienda online de bicicletas</h1>      
   </div>
 </div>
 
@@ -65,12 +65,11 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
-      </button>
-      <a class="navbar-brand">Elementos</a>
+
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li> <a href="sigueComprando">Home</a></li>
+        <li> <a href="sigueComprando">Inicio</a></li>
         <li class="active"><a href="Modificar">Ajustes de perfil</a></li>
         <li><a href="cerrarSesion">Cerrar sesión</a></li>
       </ul>

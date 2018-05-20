@@ -3,7 +3,7 @@ package org.ingservicios.practicaPaypal;
 import java.io.Serializable;
 
 public class DTOUsuarios implements Serializable {
-//Datos de nuestra tabla
+	//Estas son las columnas de nuestra tabla
 	private String nombre;
 	private String password;
 	private String email;
@@ -21,7 +21,6 @@ public class DTOUsuarios implements Serializable {
 		this.password=password;
 		this.email=email;
 		this.dni=dni;
-
 	}
 
 	public String getNombre() {
@@ -56,6 +55,5 @@ public class DTOUsuarios implements Serializable {
 		this.dni = dni;
 	}
 	
-	
-	
+		
 }

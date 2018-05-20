@@ -4,13 +4,15 @@
 <html lang="en">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
-  <title>Tienda Online</title>
+  <title>Tu Tienda online</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!--  
 <!--===============================================================================================-->	
 	<link rel="icon" type="image/png" href="resources/images/icons/favicon.ico"/>
 <!--===============================================================================================-->
@@ -34,7 +36,7 @@
 <!--===============================================================================================-->
   
   <style>
-
+-->
 	
     /* Remove the navbar's default rounded borders and increase the bottom margin */ 
     .navbar {
@@ -58,7 +60,7 @@
 
 <div class="jumbotron">
   <div class="container text-center">
-    <h1>Tienda Online</h1>      
+    <h1>Tu tienda online de bicicletas</h1>      
   </div>
 </div>
 
@@ -74,7 +76,7 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li><a href="sigueComprando">Home</a></li>
+        <li><a href="sigueComprando">Inicio</a></li>
        <li class="active"><a href="Modificar">Ajustes de perfil</a></li>
         <li><a href="cerrarSesion">Cerrar sesión</a></li>
       </ul>
@@ -97,20 +99,20 @@
 						Usuario
 						</span>
 					</div>
-					<div class="wrap-input100 validate-input" data-validate = "Username is required">
+					<div class="wrap-input100 validate-input" data-validate = "Debes introducir el usuario">
 						<input class="input100" type="text" name="username" >
 						<span class="focus-input100"></span>
 					</div>
 					
 					<div class="p-t-13 p-b-9">
 						<span class="txt1">
-							Password
+							Contraseña
 						</span>
 
 						
 					</div>
 					
-					<div class="wrap-input100 validate-input" data-validate = "Password is required">
+					<div class="wrap-input100 validate-input" data-validate = "Debes introducir la contraseña">
 						<input class="input100" type="password" name="pass" >
 						<span class="focus-input100"></span>
 					</div>
@@ -119,7 +121,7 @@
 						Email
 						</span>
 					</div>
-					<div class="wrap-input100 validate-input" data-validate = "Email is required">
+					<div class="wrap-input100 validate-input" data-validate = "Debes introducir el email">
 						<input class="input100" type="email" name="email" >
 						<span class="focus-input100"></span>
 					</div>
@@ -128,7 +130,7 @@
 						DNI
 						</span>
 					</div>
-					<div class="wrap-input100 validate-input" data-validate = "DNI is required">
+					<div class="wrap-input100 validate-input" data-validate = "Debes introducir el dni">
 						<input class="input100" type="text" name="dni" maxlength="8">
 						<span class="focus-input100"></span>
 					</div>

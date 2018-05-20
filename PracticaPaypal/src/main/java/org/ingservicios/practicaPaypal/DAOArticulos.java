@@ -1,6 +1,6 @@
 package org.ingservicios.practicaPaypal;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class DAOArticulos implements DAOArticulosInterfaz {
 	
-		//Añadir libreria spring-jdbc y dependencia junto a la versión
+		
 		public JdbcTemplate jdbcTemplate;
 		//private DataSource dataSource;
 		@Autowired
@@ -29,7 +29,7 @@ public class DAOArticulos implements DAOArticulosInterfaz {
 			}
 						
 			
-			public DTOArticulos buscaArticulo(int id){ //Devuelve el articulo buscado o null si no existe
+			public DTOArticulos buscaArticulo(int id){ //Nos devuelve el articulo buscado o null si no existe
 				String sql = "select * from articulos where Codigo = ?";
 				Object[ ] parametros = {id}; //Array de objetos
 				ArticulosMapper mapper = new ArticulosMapper();

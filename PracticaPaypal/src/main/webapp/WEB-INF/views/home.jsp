@@ -4,10 +4,11 @@
 <html lang="en">
 <meta charset="ISO-8859-1">
 <head>
-	<title>Home</title>
+	<title>Tu Tienda online</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
+	
+	<!--===============================================================================================-->	
 	<link rel="icon" type="image/png" href="resources/images/icons/favicon.ico"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="resources/vendor/bootstrap/css/bootstrap.min.css">
@@ -27,6 +28,8 @@
 	<link rel="stylesheet" type="text/css" href="resources/vendor/daterangepicker/daterangepicker.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="resources/css/util.css">
+
+
 	<link rel="stylesheet" type="text/css" href="resources/css/main.css">
 <!--===============================================================================================-->
 </head>
@@ -40,29 +43,29 @@
 					
 					<div class="p-t-31 p-b-9">
 						<span class="txt1">
-							User
+							Usuario
 						</span>
 					</div>
-					<div class="wrap-input100 validate-input" data-validate = "Username is required">
+					<div class="wrap-input100 validate-input" data-validate = "Debes introducir el usuario">
 						<input class="input100" type="text" name="username" >
 						<span class="focus-input100"></span>
 					</div>
 					
 					<div class="p-t-13 p-b-9">
 						<span class="txt1">
-							Password
+							Contraseña
 						</span>
 
 						
 					</div>
-					<div class="wrap-input100 validate-input" data-validate = "Password is required">
+					<div class="wrap-input100 validate-input" data-validate = "Debes introducir la contraseña">
 						<input class="input100" type="password" name="pass" >
 						<span class="focus-input100"></span>
 					</div>
 
 					<div class="container-login100-form-btn m-t-17">
 						<button class="login100-form-btn">
-							Sign In
+							Iniciar Sesión
 						</button>
 					</div>
 
@@ -70,7 +73,7 @@
 						
 
 						<a href="Registro" class="txt2 bo1">
-							Sign up now
+							Registrarse
 						</a>
 					</div>
 				</form>

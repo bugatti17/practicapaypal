@@ -1,3 +1,4 @@
+@charset "ISO-8859-1";
 
 
 
@@ -6,23 +7,23 @@
 [ FONT ]*/
 
 @font-face {
-  font-family: Poppins-Regular;
-  src: url('../fonts/poppins/Poppins-Regular.ttf'); 
+  font-family: Ubuntu-R;
+  src: url('../fonts/poppins/Ubuntu-R.ttf'); 
 }
 
 @font-face {
-  font-family: Poppins-Medium;
-  src: url('../fonts/poppins/Poppins-Medium.ttf'); 
+  font-family: Ubuntu-Rl;
+  src: url('../fonts/poppins/Ubuntu-R.ttf'); 
 }
 
 @font-face {
-  font-family: Montserrat-Medium;
-  src: url('../fonts/montserrat/Montserrat-Medium.ttf'); 
+  font-family: Ubuntu-L;
+  src: url('../fonts/montserrat/Ubuntu-L.ttf'); 
 }
 
 @font-face {
-  font-family: Montserrat-SemiBold;
-  src: url('../fonts/montserrat/Montserrat-SemiBold.ttf'); 
+  font-family: Ubuntu-M;
+  src: url('../fonts/montserrat/Ubuntu-M.ttf'); 
 }
 
 /*//////////////////////////////////////////////////////////////////
@@ -36,12 +37,12 @@
 
 body, html {
 	height: 100%;
-	font-family: Poppins-Regular, sans-serif;
+	font-family: Ubuntu-R, sans-serif;
 }
 
 /*---------------------------------------------*/
 a {
-	font-family: Poppins-Regular;
+	font-family: Ubuntu-R;
 	font-size: 14px;
 	line-height: 1.7;
 	color: #666666;
@@ -68,7 +69,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 p {
-	font-family: Poppins-Regular;
+	font-family: Ubuntu-R;
 	font-size: 14px;
 	line-height: 1.7;
 	color: #666666;
@@ -140,14 +141,14 @@ iframe {
 /*//////////////////////////////////////////////////////////////////
 [ Utility ]*/
 .txt1 {
-  font-family: Montserrat-SemiBold;
+  font-family: Ubuntu-M;
   font-size: 16px;
   color: #555555;
   line-height: 1.5;
 }
 
 .txt2 {
-  font-family: Poppins-Regular;
+  font-family: Ubuntu-R;
   font-size: 14px;
   color: #999999;
   line-height: 1.5;
@@ -200,7 +201,7 @@ iframe {
 .login100-form-title {
   width: 100%;
   display: block;
-  font-family: Montserrat-Medium;
+  font-family: Ubuntu-L;
   font-size: 39px;
   color: #555555;
   line-height: 1.2;
@@ -211,7 +212,7 @@ iframe {
 [ Button sign in with ]*/
 .btn-face,
 .btn-google {
-  font-family: Montserrat-SemiBold;
+  font-family: Ubuntu-M;
   font-size: 18px;
   line-height: 1.2;
 
@@ -309,7 +310,7 @@ iframe {
 
 /*---------------------------------------------*/
 .input100 {
-  font-family: Poppins-Regular;
+  font-family: Ubuntu-R;
   color: #333333;
   line-height: 1.2;
   font-size: 18px;
@@ -398,7 +399,7 @@ iframe {
   background-color: #333333;
   border-radius: 10px;
 
-  font-family: Poppins-Medium;
+  font-family: Ubuntu-R;
   font-size: 16px;
   color: #fff;
   line-height: 1.2;
@@ -462,7 +463,7 @@ iframe {
   right: 12px;
   pointer-events: none;
 
-  font-family: Poppins-Regular;
+  font-family: Ubuntu-R;
   color: #c80000;
   font-size: 14px;
   line-height: 1.4;
